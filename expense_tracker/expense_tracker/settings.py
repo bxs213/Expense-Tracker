@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #custom app
-    "my_app"
+    "my_app",
+    "bootstrap5"
 ]
 
 MIDDLEWARE = [
