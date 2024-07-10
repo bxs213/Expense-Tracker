@@ -11,13 +11,9 @@
     {% bootstrap_javascript %}
 </head>
 
-<body class="bg-light">
+<body>
+    {% block page_title %} Our Story {% endblock %}
     {% block content %}
-    <div class="container p-0">
-        <div class="row p-5">
-            <h1 class="display-5 text-center text-secondary">Our Story</h1>
-        </div>
-
         <div class="row">
             <div class="col-md-8">
                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam beatae consectetur consequatur est et eum fugiat illum labore laudantium maiores molestiae quidem quisquam quo sapiente sint, sit suscipit <veritatis class="lorem"></veritatis>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam doloremque ducimus fugit impedit labore laudantium officiis sit, ut? Alias doloremque eligendi esse incidunt labore laboriosam neque quis rem sed voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet beatae cupiditate debitis dolorem dolores doloribus esse et explicabo incidunt minima molestiae nesciunt numquam, officiis quam saepe vero! Deleniti, quibusdam.</p>
@@ -27,7 +23,6 @@
                          class="img-fluid rounded-3" alt="Our picture"></img>
                 </div>
             </div>
-    </div>
     {% endblock %}
 </body>
 </html>
