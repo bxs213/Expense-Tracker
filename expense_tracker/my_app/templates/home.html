@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumi Press Expense Tracker</title>
+    {% extends "base.html" %}
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+  <title>{% block title %}Report{% endblock %}</title>
+</head>
+
+{% block page_title %}Rumi Press Book Report{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <form class="col input-group mb-3 " method=POST
+              action="{% url 'search-results' %}">
+            {% csrf_token %}
+            <input type="text" class="form-control"
+                   placeholder="Lookup a book"
+                   aria-label="Search the book database"
+                   aria-describedby="button-addon2"
+                   name="search">
+            <button class="btn btn-outline-secondary align-left" type=button">Search</button>
+        </form>
+        <div class="col-9">
+            <form action="{% url 'add-book' %}" method="get">
+                <button type="submit" class="btn btn-primary float-end">Add Book</button>
+            </form>
+        </div>
+    </div>
+</div>
+    <table id="my_table_id"
+    data-url="data/url.json"
+    data-id-field="id"
+    data-editable-emptytext="Default empty text."
+    data-editable-url="/my/editable/update/path"
+    class="table table-hover table-borderless table-sm">
+      <thead>
+      <tr>
+        <th> Book ID </th>
+        <th> Title </th>
+        <th> Author(s) </th>
+        <th> Publish Date </th>
+        <th> Category </th>
+        <th> Distribution Expense </th>
+          <th></th>
+      </tr>
+      </thead>
+      {% for book in Books %}
+        <tr>
+            <td>{{ book.id_num }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.publish_date }}</td>
+            <td>{{ book.category }}</td>
+            <td>{{ book.distribution_expense }}</td>
+            <td>
+                <a href="{% url 'update-book' book.id %}">
+                    <image type="image" src="{% static 'images/edit.png' %}"
+                         style="max-width:30px" ></image>
+                </a>
+            </td>
+            <td>
+                <form action="{% url 'delete-book' book.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="image" src="{% static 'images/delete.png' %}"
+                         style="max-width:30px" ></input>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+  </ul>
+{% endblock %}
+
+</html>
+

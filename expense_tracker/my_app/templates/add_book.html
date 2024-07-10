@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends "base.html" %}
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+  <title>{% block title %}Add book{% endblock %}</title>
+</head>
+
+{% block page_title %}Rumi Press Book Report{% endblock %}
+{% block content %}
+{% if submitted %}
+<div class="container-fluid">
+  <div class="alert alert-success"> Book Submitted successfully</div>
+  <div class="row">
+    <div class="col-sm-1">
+      <form action="{% url 'add-book' %}" method="get">
+    <button type="submit" class="btn btn-primary">Add Another Book</button>
+  </form></div>
+    <div class="col">
+      <form action="{% url 'home' %}" method="get">
+        <button type="submit" class="btn btn-primary">Return To Report</button>
+      </form>
+    </div>
+</div>
+</div>
+</div>
+{% else %}
+  <div class="container-fluid">
+  <h1 class="lead"> Add new book</h1>
+  <form method="POST">
+   {% csrf_token %}
+   {{form.as_p}}
+   <button class="btn btn-primary" type="submit"> Submit </button>
+  </div>
+{% endif %}
+{% endblock %}
+
+</html>
