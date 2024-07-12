@@ -1,6 +1,18 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Book
+from .models import Book,Category
+
+
+
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+
+        fields = ("name",)
+        labels = {"name":""}
+        widgets = {
+            "name": forms.TextInput(attrs={"class": 'form-control', "placeholder": "Category Name"}),
+        }
 
 class BookForm(ModelForm):
     class Meta:
@@ -15,19 +27,17 @@ class BookForm(ModelForm):
             "category":"",
             "distribution_expense":""
         }
+        category = forms.ChoiceField(choices=Category.cat_dict())
+
         widgets = {
             "id_num":forms.TextInput(attrs={"class":'form-control',"placeholder":"ID Number"}),
             "title":forms.TextInput(attrs={"class":'form-control',"placeholder":"Title"}),
             "author":forms.TextInput(attrs={"class":'form-control',"placeholder":"Author"}),
             "publish_date":forms.TextInput(attrs={"class":'form-control',"placeholder":"Publish Date"}),
-            "category":forms.TextInput(attrs={"class":'form-control',"placeholder":"Category"}),
+            "category":forms.Select(attrs={"class":'form-control',"placeholder":"Categories"}),
             "distribution_expense": forms.TextInput(attrs={"class":'form-control',"placeholder":"Distribution Expense"}),
         }
-    def update_db(self):
-        new_book = Book(id_num=self.cleaned_data['ID'],
-                        title=self.cleaned_data['title'],
-                        author=self.cleaned_data['author'],
-                        publish_date=self.cleaned_data['publish_date'],
-                        category=self.cleaned_data['category'],
-                        distribution_expense=self.cleaned_data['distribution_expense'])
-        new_book.save()
+
+    def __init__(self, *args, **kwargs):
+        super(BookForm, self).__init__(*args, **kwargs)
+        self.fields['category'].required = False
