@@ -3,21 +3,93 @@
 <head>
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Rumi Press Expense Tracker</title>
     {% extends "base.html" %}
     {% load bootstrap5 %}
     {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+
 </head>
   <title>{% block title %}Report{% endblock %}</title>
 </head>
 
-<body>
+{% block page_title %}Rumi Press Book Report{% endblock %}
 {% block content %}
-<div class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium dolores in magnam magni sequi? Aliquam, blanditiis consequatur earum hic id, ipsum laborum magni maiores, non nulla officia sunt tenetur ullam?
-</div>
-    {% endblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'add-category' %}" method="get">
+                <button type="submit" class="btn btn-primary float-beginning">Add Category</button>
+            </form>
+        </div>
 
-</body>
+</div>
+
+    <table id="my_table_id"
+    data-url="data/url.json"
+    data-id-field="id"
+    data-editable-emptytext="Default empty text."
+    data-editable-url="/my/editable/update/path"
+    class="table table-hover table-borderless table-sm">
+      <thead>
+      <tr>
+        <th> Category </th>
+
+      </tr>
+      </thead>
+      {% for category in category_pages %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>
+                <a href="{% url 'update-category' category.id %}">
+                    {% csrf_token %}
+                    <image type="image" src="{% static 'images/edit.png' %}"
+                         style="max-width:30px" ></image>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'delete-category' category.id %}" method="POST">
+                    {% csrf_token %}
+                    <image type="image" src="{% static 'images/delete.png' %}"
+                         style="max-width:30px" ></image>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+
+<nav aria-label="...">
+  <ul class="pagination">
+      {% if book_pages.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page=1">&laquo</a>
+      </li>
+      <li class="page-item ">
+          <a class="page-link" href="?page={{ book_pages.previous_page_number }}"
+          >Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+          <a href="#" class="page-link">
+              Page {{ book_pages.number}} of {{ book_pages.paginator.num_pages }}
+          </a>
+      </li>
+      {% if book_pages.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ book_pages.next_page_number }}">
+              Next</a>
+      </li>
+      <li class="page-item">
+          <a class="page-link" href="?page={{ book_pages.paginator.num_pages }}">
+              &raquo</a></li>
+      {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
+</div>
 </html>
+

@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #custom app
     "my_app",
-    "bootstrap5"
-
+    "bootstrap5",
+    "members",
 ]
 
 MIDDLEWARE = [

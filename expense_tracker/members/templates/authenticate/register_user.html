@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+  <title>Rumi Press Registration Page</title>
+</head>
+<body class="bg-light">
+
+  <div class="container">
+    {% if form.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      There was an issue registering your user.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    {% endif %}
+    <div class="row">
+      <div class="col align-self-center">
+        <h1 class="lead">Register to Rumi Press</h1>
+      </div>
+      <div class="col align-self-center p-5">
+        <h1 class="lead">Register</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-primary" type="submit"> Submit </button>
+        </form>
+    </div>
+    </div>
+  </div>
+
+</body>
+</html>

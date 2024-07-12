@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+  <title>Rumi Press Login Page</title>
+</head>
+<body class="bg-light">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col align-self-center">
+        <div class="row">
+        <h1 class="lead">Login to Rumi Press</h1>
+        </div>
+        <div class="row">
+          <p> Not registered? Sign up <a href="{% url 'register' %}">here</a></p>
+        </div>
+      </div>
+
+      <div class="col p-5">
+        <form class="align-middle" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-primary" type="submit"> Submit </button>
+        </form>
+        </div>
+        <div class="row p-3" style="height:10vh">
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% else %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -19,5 +19,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",include("my_app.urls"))
+    path("", include("my_app.urls")),
+    path("members/", include("django.contrib.auth.urls")),
+    path("members/", include("members.urls")),
+
 ]
+
+# Configure Admin Titles
+
+admin.site.site_header = "Rumi Press Admin Page"
+admin.site.site_title = "Rumi Press"
+admin.site.index_title = "Welcome to the Admin Area"

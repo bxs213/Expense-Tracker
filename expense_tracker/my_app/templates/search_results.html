@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
     {% extends "base.html" %}
     {% load bootstrap5 %}
     {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
-  <title>{% block title %}Report{% endblock %}</title>
+  <title>{% block title %}Book Search{% endblock %}</title>
 </head>
 
 {% block page_title %}Rumi Press Book Report{% endblock %}
@@ -50,20 +49,21 @@
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.publish_date }}</td>
-            <td>{{ book.category }}</td>
+            <td>{{ book.category.name }}</td>
             <td>{{ book.distribution_expense }}</td>
             <td>
-                <a href="{% url 'update-book' book.id %}">
+                 <a href="{% url 'update-book' book.id %}">
+                    {% csrf_token %}
                     <image type="image" src="{% static 'images/edit.png' %}"
                          style="max-width:30px" ></image>
                 </a>
             </td>
             <td>
-                <form action="{% url 'delete-book' book.id %}" method="POST">
+                <a href="{% url 'delete-book' book.id %}" method="POST">
                     {% csrf_token %}
-                    <input type="image" src="{% static 'images/delete.png' %}"
-                         style="max-width:30px" ></input>
-                </form>
+                    <image type="image" src="{% static 'images/delete.png' %}"
+                         style="max-width:30px" ></image>
+                </a>
             </td>
         </tr>
         {% endfor %}
@@ -71,7 +71,7 @@
       </table>
   </ul>
 {% else %}
-<h1> Didn't search</h1>
+<h1 class="lead"> No Results found</h1>
 {% endif %}
 {% endblock %}
 
