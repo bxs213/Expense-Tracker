@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Book, Category
 from .forms import BookForm,CategoryForm
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 
 # Create your views here.
@@ -27,6 +27,8 @@ def home(req):
 @login_required(login_url="login")
 def contact_us(req):
     return render(req, "contact_us.html")
+
+
 @login_required(login_url="login")
 def categories(req):
 
@@ -38,6 +40,8 @@ def categories(req):
     context = {"category_pages": category_pages}
     return render(req, "categories.html", context)
 
+
+@permission_required("my_app.add_book", raise_exception=True)
 @login_required(login_url="login")
 def add_book_view(req):
     submitted = False
@@ -54,6 +58,8 @@ def add_book_view(req):
     context = {'form': form,'submitted': submitted, }
     return render(req, 'add_book.html', context)
 
+
+@permission_required("my_app.delete_book", raise_exception=True)
 @login_required(login_url="login")
 def delete_book(req, book_id):
     book = Book.objects.filter(id=book_id)
@@ -62,6 +68,8 @@ def delete_book(req, book_id):
     book.delete()
     return redirect("home")
 
+
+@permission_required("my_app.change_book", raise_exception=True)
 @login_required(login_url="login")
 def update_book(req, book_id):
     book = Book.objects.get(pk=book_id)
@@ -74,6 +82,7 @@ def update_book(req, book_id):
     else:
         context = {"book":book,"form":form}
         return render(req, "update_book.html",context)
+
 
 @login_required(login_url="login")
 def search_results(req):
@@ -91,6 +100,9 @@ def search_results(req):
             return redirect("home")
     else:
         return redirect("home")
+
+
+@permission_required("my_app.add_category", raise_exception=True)
 @login_required(login_url="login")
 def add_category(req):
     submitted = False
@@ -107,6 +119,8 @@ def add_category(req):
     context = {'form': form, 'submitted': submitted, }
     return render(req, 'add_category.html', context)
 
+
+@permission_required("my_app.change_category", raise_exception=True)
 @login_required(login_url="login")
 def update_category(req, category_id):
     category = Category.objects.get(pk=category_id)
@@ -120,6 +134,8 @@ def update_category(req, category_id):
         context = {"category":category,"form":form}
         return render(req, "update_category.html",context)
 
+
+@permission_required("my_app.delete_category", raise_exception=True)
 @login_required(login_url="login")
 def delete_category(req, category_id):
     category = Category.objects.filter(id=category_id)
