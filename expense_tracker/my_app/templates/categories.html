@@ -62,7 +62,7 @@
 
 <nav aria-label="...">
   <ul class="pagination">
-      {% if book_pages.has_previous %}
+      {% if category_pages.has_previous %}
       <li class="page-item">
           <a class="page-link" href="?page=1">&laquo</a>
       </li>
@@ -74,16 +74,16 @@
 
       <li class="page-item disabled">
           <a href="#" class="page-link">
-              Page {{ book_pages.number}} of {{ book_pages.paginator.num_pages }}
+              Page {{ category_pages.number}} of {{ category_pages.paginator.num_pages }}
           </a>
       </li>
-      {% if book_pages.has_next %}
+      {% if category_pages.has_next %}
       <li class="page-item">
-          <a class="page-link" href="?page={{ book_pages.next_page_number }}">
+          <a class="page-link" href="?page={{ category_pages.next_page_number }}">
               Next</a>
       </li>
       <li class="page-item">
-          <a class="page-link" href="?page={{ book_pages.paginator.num_pages }}">
+          <a class="page-link" href="?page={{ category_pages.paginator.num_pages }}">
               &raquo</a></li>
       {% endif %}
   </ul>
