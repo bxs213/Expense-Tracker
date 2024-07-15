@@ -59,7 +59,7 @@
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.publish_date }}</td>
-            <td>{{ book.category.name }}</td>
+            <td>{{ book.category }}</td>
             <td>{{ book.distribution_expense }}</td>
             <td>
                 <a href="{% url 'update-book' book.id %}">

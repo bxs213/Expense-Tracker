@@ -9,6 +9,8 @@ class Category(models.Model):
     def cat_dict(cls):
         all_objects = Category.objects.all()
         return list(map(lambda obj: (obj.name,obj.name), all_objects))
+    def __str__(self):
+        return self.name
 
 class Book(models.Model):
 
