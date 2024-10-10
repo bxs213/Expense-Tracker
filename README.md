@@ -9,7 +9,7 @@ This is the repository of a sample web application for a book publisher designed
 4. Allow logged in users can search for books.
 5. Allow logged in employees that are part of the Rumi Press Employees group (or have the required permissions) can perform CRUD operations on an expense database that houses all of their books.
 6. Allow logged in employees that are part of the Rumi Press Employees group (or have the required permissions) can perform CRUD operations on the categories of books in the expense database.
-7. Allow site administrators can remove users 
+7. Allow site administrators to remove users 
 
 
 This web application is based on the Coursera Project found here:
